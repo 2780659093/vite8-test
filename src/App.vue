@@ -1,30 +1,52 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+const route = useRoute()
+const activePath = computed(() => route.path)
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <el-container class="app-layout">
+    <el-header class="app-header">
+      <div class="brand">Vite Vue Demo</div>
+      <el-menu
+        :default-active="activePath"
+        mode="horizontal"
+        router
+        class="app-menu"
+      >
+        <el-menu-item index="/">首页</el-menu-item>
+        <el-menu-item index="/about">关于</el-menu-item>
+      </el-menu>
+    </el-header>
+    <el-main class="app-main">
+      <router-view />
+    </el-main>
+  </el-container>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.app-layout {
+  min-height: 100vh;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid #e5e7eb;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.brand {
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.app-menu {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-main {
+  background: #f7f8fa;
 }
 </style>
